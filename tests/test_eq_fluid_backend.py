@@ -28,9 +28,11 @@ def test_jca_bulk_modulus_density(
         2*np.pi*freqs, **jca_params, **air_params,
     )
 
-    np.testing.assert_allclose(K_eq, K_eq_ref)
+    np.testing.assert_allclose(np.real(K_eq), np.real(K_eq_ref))
+    np.testing.assert_allclose(np.imag(K_eq), np.imag(K_eq_ref))
 
-    np.testing.assert_allclose(rho_eq, rho_eq_ref)
+    np.testing.assert_allclose(np.real(rho_eq), np.real(rho_eq_ref))
+    np.testing.assert_allclose(np.imag(rho_eq), np.imag(rho_eq_ref))
 
 
 def test_jca_model_pytensor(
@@ -139,9 +141,11 @@ def test_jcal_bulk_modulus_density(
         2*np.pi*freqs, **jcal_params, **air_params,
     )
 
-    np.testing.assert_allclose(K_eq, K_eq_ref)
+    np.testing.assert_allclose(np.real(K_eq), np.real(K_eq_ref))
+    np.testing.assert_allclose(np.imag(K_eq), np.imag(K_eq_ref))
 
-    np.testing.assert_allclose(rho_eq, rho_eq_ref)
+    np.testing.assert_allclose(np.real(rho_eq), np.real(rho_eq_ref))
+    np.testing.assert_allclose(np.imag(rho_eq), np.imag(rho_eq_ref))
 
 
 def test_jcal_model_pytensor(
