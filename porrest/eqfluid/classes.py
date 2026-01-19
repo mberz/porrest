@@ -364,7 +364,7 @@ class SemiPhenomenologicalBase(PhenomenologicalBase):
 
 
 
-class JohnsonChampouxAllard(Miki, SemiPhenomenologicalBase):
+class JohnsonChampouxAllard(SemiPhenomenologicalBase, Miki):
     r"""Johnson-Champoux-Allard equivalent fluid model.
 
     The model is calculated using the following equations for the
@@ -454,8 +454,9 @@ class JohnsonChampouxAllard(Miki, SemiPhenomenologicalBase):
         saturating_fluid : Fluid, optional
             The medium saturating the pores, by default `Air()`
         """
-        super().__init__(
-            frequencies,
+        Miki.__init__(
+            self=self,
+            frequencies=frequencies,
             porosity=porosity,
             tortuosity=tortuosity,
             viscous_permeability=viscous_permeability,
@@ -496,6 +497,16 @@ class JohnsonChampouxAllard(Miki, SemiPhenomenologicalBase):
         Approximated as :math:`\frac{\phi (\Lambda^\prime)^2}{8}`.
         """
         return self.porosity*self.thermal_characteristic_length**2 / 8
+
+    @property
+    def bulk_modulus(self):
+        r"""The bulk modulus :math:`K_\mathrm{eq}`."""
+        return SemiPhenomenologicalBase.bulk_modulus.fget(self)
+
+    @property
+    def density(self):
+        r"""The density :math:`\rho_\mathrm{eq}`."""
+        return SemiPhenomenologicalBase.density.fget(self)
 
 
 class JohnsonChampouxAllardLafarge(
@@ -546,8 +557,9 @@ class JohnsonChampouxAllardLafarge(
             flow_resistivity: Number | None = None,
             saturating_fluid: Fluid = Air(),
         ):
-        super().__init__(
-            frequencies,
+        JohnsonChampouxAllard.__init__(
+            self=self,
+            frequencies=frequencies,
             porosity=porosity,
             tortuosity=tortuosity,
             viscous_permeability=viscous_permeability,
